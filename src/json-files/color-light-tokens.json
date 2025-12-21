@@ -1,0 +1,246 @@
+{
+  "Button": {
+    "primary": {
+      "$type": "color",
+      "$value": {
+        "colorSpace": "srgb",
+        "components": [
+          0,
+          0.9692758321762085,
+          0.6300292611122131
+        ],
+        "alpha": 1,
+        "hex": "#00F7A1"
+      },
+      "$extensions": {
+        "com.figma.variableId": "VariableID:9:11",
+        "com.figma.scopes": [
+          "FRAME_FILL",
+          "SHAPE_FILL"
+        ]
+      }
+    },
+    "secondary": {
+      "$type": "color",
+      "$value": {
+        "colorSpace": "srgb",
+        "components": [
+          0.90478515625,
+          0.90478515625,
+          0.90478515625
+        ],
+        "alpha": 1,
+        "hex": "#E7E7E7"
+      },
+      "$extensions": {
+        "com.figma.variableId": "VariableID:9:104",
+        "com.figma.scopes": [
+          "FRAME_FILL",
+          "SHAPE_FILL"
+        ]
+      }
+    }
+  },
+  "Text": {
+    "primary": {
+      "$type": "color",
+      "$value": {
+        "colorSpace": "srgb",
+        "components": [
+          0.06666667014360428,
+          0.06666667014360428,
+          0.06666667014360428
+        ],
+        "alpha": 1,
+        "hex": "#111111"
+      },
+      "$extensions": {
+        "com.figma.variableId": "VariableID:9:9",
+        "com.figma.scopes": [
+          "SHAPE_FILL",
+          "TEXT_FILL",
+          "STROKE"
+        ]
+      }
+    },
+    "secondary": {
+      "$type": "color",
+      "$value": {
+        "colorSpace": "srgb",
+        "components": [
+          0.3921568691730499,
+          0.3921568691730499,
+          0.3921568691730499
+        ],
+        "alpha": 1,
+        "hex": "#646464"
+      },
+      "$extensions": {
+        "com.figma.variableId": "VariableID:9:10",
+        "com.figma.scopes": [
+          "SHAPE_FILL",
+          "TEXT_FILL",
+          "STROKE"
+        ]
+      }
+    },
+    "tertiary": {
+      "$type": "color",
+      "$value": {
+        "colorSpace": "srgb",
+        "components": [
+          0.5228928923606873,
+          0.5228928923606873,
+          0.5228928923606873
+        ],
+        "alpha": 1,
+        "hex": "#858585"
+      },
+      "$extensions": {
+        "com.figma.variableId": "VariableID:9:315",
+        "com.figma.scopes": [
+          "SHAPE_FILL",
+          "TEXT_FILL",
+          "STROKE"
+        ]
+      }
+    },
+    "button": {
+      "$type": "color",
+      "$value": "{Text.primary}",
+      "$extensions": {
+        "com.figma.variableId": "VariableID:10:301",
+        "com.figma.scopes": [
+          "SHAPE_FILL",
+          "TEXT_FILL",
+          "STROKE"
+        ]
+      }
+    }
+  },
+  "BG": {
+    "main": {
+      "$type": "color",
+      "$value": {
+        "colorSpace": "srgb",
+        "components": [
+          0.9662898182868958,
+          0.9662898182868958,
+          0.9662898182868958
+        ],
+        "alpha": 1,
+        "hex": "#F6F6F6"
+      },
+      "$extensions": {
+        "com.figma.variableId": "VariableID:9:8",
+        "com.figma.scopes": [
+          "FRAME_FILL",
+          "SHAPE_FILL"
+        ]
+      }
+    },
+    "card": {
+      "$type": "color",
+      "$value": {
+        "colorSpace": "srgb",
+        "components": [
+          0.9882352948188782,
+          0.9882352948188782,
+          0.9882352948188782
+        ],
+        "alpha": 1,
+        "hex": "#FCFCFC"
+      },
+      "$extensions": {
+        "com.figma.variableId": "VariableID:10:25",
+        "com.figma.scopes": [
+          "FRAME_FILL",
+          "SHAPE_FILL"
+        ]
+      }
+    },
+    "floating menu": {
+      "$type": "color",
+      "$value": {
+        "colorSpace": "srgb",
+        "components": [
+          0.9647058844566345,
+          0.9647058844566345,
+          0.9647058844566345
+        ],
+        "alpha": 0.6000000238418579,
+        "hex": "#F6F6F6"
+      },
+      "$extensions": {
+        "com.figma.variableId": "VariableID:10:372",
+        "com.figma.scopes": [
+          "ALL_SCOPES"
+        ]
+      }
+    }
+  },
+  "Input": {
+    "Base": {
+      "$type": "color",
+      "$value": {
+        "colorSpace": "srgb",
+        "components": [
+          0.9647058844566345,
+          0.9647058844566345,
+          0.9647058844566345
+        ],
+        "alpha": 1,
+        "hex": "#F6F6F6"
+      },
+      "$extensions": {
+        "com.figma.variableId": "VariableID:10:22",
+        "com.figma.scopes": [
+          "ALL_SCOPES"
+        ]
+      }
+    }
+  },
+  "border": {
+    "prim": {
+      "$type": "color",
+      "$value": {
+        "colorSpace": "srgb",
+        "components": [
+          0.9111703634262085,
+          0.9111703634262085,
+          0.9111703634262085
+        ],
+        "alpha": 1,
+        "hex": "#E8E8E8"
+      },
+      "$extensions": {
+        "com.figma.variableId": "VariableID:10:26",
+        "com.figma.scopes": [
+          "STROKE"
+        ]
+      }
+    },
+    "sec": {
+      "$type": "color",
+      "$value": {
+        "colorSpace": "srgb",
+        "components": [
+          0.8243314027786255,
+          0.8243314027786255,
+          0.8243314027786255
+        ],
+        "alpha": 1,
+        "hex": "#D2D2D2"
+      },
+      "$extensions": {
+        "com.figma.variableId": "VariableID:10:861",
+        "com.figma.scopes": [
+          "STROKE"
+        ]
+      }
+    }
+  },
+  "$extensions": {
+    "com.figma.modeName": "Light"
+  }
+}

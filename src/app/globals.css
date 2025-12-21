@@ -1,0 +1,109 @@
+@import "tailwindcss";
+
+:root {
+  --background: #ffffff;
+  --foreground: #171717;
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --font-sans: var(--font-geist-sans);
+  --font-mono: var(--font-geist-mono);
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --background: #0a0a0a;
+    --foreground: #ededed;
+  }
+}
+
+/* Theme CSS Variables - Updated by ThemeProvider */
+:root,
+:root.light {
+  /* Light theme colors from design tokens (color-light-tokens.json) */
+  --background: #F6F6F6; /* BG.main */
+  --surface: #FCFCFC; /* BG.card */
+  --foreground: #111111; /* Text.primary */
+  --muted: #646464; /* Text.secondary */
+  --muted-foreground: #858585; /* Text.tertiary */
+  --border: #E8E8E8; /* border.prim */
+  --border-secondary: #D2D2D2; /* border.sec */
+  --accent: #00F7A1; /* Button.primary */
+  --accent-foreground: #111111; /* Text.primary */
+  --primary: #00F7A1; /* Button.primary */
+  --primary-foreground: #111111; /* Text.primary */
+  --secondary: #E7E7E7; /* Button.secondary */
+  --secondary-foreground: #111111; /* Text.primary */
+  --button-hover: #F0F0F0; /* Button.hover (light) */
+  --button-hover-50: rgba(240, 240, 240, 0.5); /* Hover @50% */
+  --destructive: #ef4444;
+  --destructive-foreground: #ffffff;
+  --card: #FCFCFC; /* BG.card */
+  --input: #F6F6F6; /* Input.Base */
+
+  /* Glass effect (BG.floating menu with alpha 0.6) */
+  --glass-background: rgba(246, 246, 246, 0.6);
+  --glass-border: rgba(232, 232, 232, 0.2);
+  --glass-backdrop: blur(20px);
+}
+
+:root.dark {
+  /* Dark theme colors from design tokens (color-dark-tokens.json) */
+  --background: #111111; /* BG.main */
+  --surface: #0F0F0F; /* BG.card */
+  --foreground: #EEEEEE; /* Text.primary */
+  --muted: #B5B5B5; /* Text.secondary */
+  --muted-foreground: #989898; /* Text.tertiary */
+  --border: #252525; /* border.prim */
+  --border-secondary: #434343; /* border.sec */
+  --accent: #00F7A1; /* Button.primary */
+  --accent-foreground: #111111; /* Dark text on accent */
+  --primary: #00F7A1; /* Button.primary */
+  --primary-foreground: #111111; /* Dark text on primary */
+  --secondary: #222222; /* Button.secondary */
+  --secondary-foreground: #EEEEEE; /* Text.primary */
+  --button-hover: #181818; /* Button.hover (dark) */
+  --button-hover-50: rgba(24, 24, 24, 0.5); /* Hover @50% */
+  --destructive: #ef4444;
+  --destructive-foreground: #ffffff;
+  --card: #0F0F0F; /* BG.card */
+  --input: #181818; /* Input.Base */
+
+  /* Glass effect (BG.floating menu with alpha 0.6) */
+  --glass-background: rgba(17, 17, 17, 0.6);
+  --glass-border: rgba(37, 37, 37, 0.2);
+  --glass-backdrop: blur(20px);
+}
+
+body {
+  background: var(--background);
+  color: var(--foreground);
+  font-family: var(--font-geist-sans);
+  transition: background-color 0.2s ease, color 0.2s ease;
+}
+
+/* Responsive container width */
+@media (min-width: 43rem) {
+  .responsive-container {
+    width: 42rem !important;
+    max-width: none !important;
+  }
+}
+
+/* Hide nav text on small screens */
+@media (max-width: 41.999rem) {
+  .nav-label {
+    display: none;
+  }
+}
+
+/* Font utility classes - Use font-sans for Geist Sans, font-mono for Geist Mono */
+.font-sans {
+  font-family: var(--font-geist-sans);
+}
+
+.font-mono {
+  font-family: var(--font-geist-mono);
+}

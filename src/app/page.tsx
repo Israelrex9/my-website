@@ -1,0 +1,299 @@
+'use client';
+
+import { useState, useEffect } from 'react';
+import Image from 'next/image';
+import { FloatingNav } from '@/components/floating-nav';
+import { designTokens } from '@/design-tokens';
+import { EnvelopeSimple, LinkedinLogo, TwitterLogo, GithubLogo } from '@phosphor-icons/react';
+
+interface Update {
+  title: string;
+  description: string;
+  category: string;
+  date: string;
+}
+
+export default function Home() {
+  const [selectedFilter, setSelectedFilter] = useState('All');
+  const [email, setEmail] = useState('');
+  const [updates, setUpdates] = useState<Update[]>([]);
+  const [loading, setLoading] = useState(true);
+  const [isSubscribed, setIsSubscribed] = useState(false);
+
+  const filters = ['All', 'Work', 'Projects', 'Writings', 'Components'];
+
+  // Fetch updates from API
+  useEffect(() => {
+    const fetchUpdates = async () => {
+      try {
+        const response = await fetch('/api/experiences');
+        if (response.ok) {
+          const data = await response.json();
+          // Format dates from ISO strings to YYYY-MM-DD if needed
+          const formattedData = data.map((update: Update) => ({
+            ...update,
+            date: update.date.split('T')[0] // Convert ISO date to YYYY-MM-DD
+          }));
+          setUpdates(formattedData);
+        } else {
+          const errorData = await response.json().catch(() => ({}));
+          console.error('Failed to fetch updates:', response.status, errorData);
+        }
+      } catch (error) {
+        console.error('Error fetching updates:', error);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchUpdates();
+  }, []);
+
+  // Filter updates based on selected filter
+  const filteredUpdates = selectedFilter === 'All' 
+    ? updates 
+    : updates.filter(update => update.category === selectedFilter);
+
+  // Validate email format (must contain @ and domain with dot)
+  const isValidEmail = (email: string) => {
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    return emailRegex.test(email);
+  };
+
+  const isEmailValid = isValidEmail(email);
+
+  const handleSubscribe = async (e: React.FormEvent) => {
+    e.preventDefault();
+
+    if (!isEmailValid) return;
+
+    try {
+      const response = await fetch('/api/subscribe', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ email }),
+      });
+
+      if (!response.ok) {
+        const errorData = await response.json().catch(() => ({}));
+        console.error('Failed to subscribe:', response.status, errorData);
+        return;
+      }
+
+      // Mark as subscribed and clear the input
+      setIsSubscribed(true);
+      console.log('Subscribed:', email);
+      setEmail('');
+    } catch (error) {
+      console.error('Error subscribing:', error);
+    }
+  };
+
+  return (
+    <div className="min-h-screen bg-[var(--background)] text-[var(--foreground)]">
+      <div 
+        className="responsive-container flex flex-col mx-auto w-full pt-24 pb-24 px-4"
+        style={{ 
+          gap: designTokens.spacing.xwd
+        }}
+      >
+        {/* Header/Profile Section */}
+        <div className="flex flex-col" style={{ gap: designTokens.spacing.md }}>
+          {/* Profile Picture with Name and Title */}
+          <div 
+            className="mb-6 flex items-center"
+            style={{ gap: designTokens.spacing.lg }}
+          >
+            <div 
+              className="h-12 w-12 shrink-0 overflow-hidden bg-[var(--surface)]"
+              style={{ borderRadius: designTokens.borders.radius.lg }}
+            >
+        <Image
+                src="/profile-picture.png"
+                alt="Israel Rex"
+                width={48}
+                height={48}
+                className="h-full w-full object-cover"
+          priority
+        />
+            </div>
+            
+            <div className="flex flex-col" style={{ gap: designTokens.spacing.sm }}>
+              <h1 className="text-base font-medium text-[var(--foreground)]" style={{ lineHeight: '100%' }}>Israel Rex</h1>
+              <p className="text-base font-normal text-[var(--muted)]" style={{ lineHeight: '100%' }}>Product Designer at PearProtocol</p>
+            </div>
+          </div>
+          
+          {/* Bio Text */}
+          <div className="mb-6 space-y-3 text-[var(--muted-foreground)]">
+            <p>
+              I&apos;m a founding designer at PearProtocol, a product designer and a design engineer. I design and build software products that feel magical, yet simple and intuitive.
+            </p>
+            <p>
+              Recently, I am picking interest in UI micro interactions and sharing my thoughts through writings and videos. Look forward to my first writing piece.
+            </p>
+          </div>
+          
+          {/* Social Media Links */}
+          <div className="flex gap-2">
+            <a
+              href="mailto:rex@xelmar.co"
+              className="flex items-center py-3 px-6 text-xs text-[var(--foreground)] transition-colors"
+              style={{ 
+                gap: designTokens.spacing.sm, 
+                borderRadius: designTokens.borders.radius.xbg,
+                backgroundColor: 'var(--secondary)'
+              }}
+              onMouseEnter={(e) => e.currentTarget.style.backgroundColor = 'var(--button-hover)'}
+              onMouseLeave={(e) => e.currentTarget.style.backgroundColor = 'var(--secondary)'}
+            >
+              <EnvelopeSimple size={15} color="currentColor" weight='fill' />
+              Mail
+            </a>
+            <a
+              href="https://www.linkedin.com/in/israel-rex/"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="flex items-center gap-2 px-4 py-2 text-sm text-[var(--foreground)] transition-colors"
+              style={{
+                borderRadius: designTokens.borders.radius.xbg,
+                backgroundColor: 'var(--secondary)'
+              }}
+              onMouseEnter={(e) => e.currentTarget.style.backgroundColor = 'var(--button-hover)'}
+              onMouseLeave={(e) => e.currentTarget.style.backgroundColor = 'var(--secondary)'}
+            >
+              <LinkedinLogo size={14} color="currentColor" weight='fill'/>
+              Linkedin
+            </a>
+            <a
+              href="https://x.com/israelxrex"
+            target="_blank"
+            rel="noopener noreferrer"
+              className="flex items-center gap-2 px-4 py-2 text-sm text-[var(--foreground)] transition-colors"
+              style={{
+                borderRadius: designTokens.borders.radius.xbg,
+                backgroundColor: 'var(--secondary)'
+              }}
+              onMouseEnter={(e) => e.currentTarget.style.backgroundColor = 'var(--button-hover)'}
+              onMouseLeave={(e) => e.currentTarget.style.backgroundColor = 'var(--secondary)'}
+            >
+              <TwitterLogo size={15} color="currentColor" weight='fill' />
+              Twitter
+          </a>
+          <a
+              href="https://github.com/Israelrex9"
+            target="_blank"
+            rel="noopener noreferrer"
+              className="flex items-center gap-2 px-4 py-2 text-sm text-[var(--foreground)] transition-colors"
+              style={{
+                borderRadius: designTokens.borders.radius.xbg,
+                backgroundColor: 'var(--secondary)'
+              }}
+              onMouseEnter={(e) => e.currentTarget.style.backgroundColor = 'var(--button-hover)'}
+              onMouseLeave={(e) => e.currentTarget.style.backgroundColor = 'var(--secondary)'}
+            >
+              <GithubLogo size={14} color="currentColor" weight='fill' />
+              Github
+            </a>
+          </div>
+        </div>
+
+        {/* Mailing List Section */}
+        <div 
+          className="p-6 gap-4 border border-[var(--border)] bg-[var(--card)]"
+          style={{ borderRadius: designTokens.borders.radius.lg }}
+        >
+          <p className="mb-4 text-sm font-normal text-[var(--muted-foreground)]">
+            Join my mailing list, to be the first to know when I release my first writing piece.
+          </p>
+          <form onSubmit={handleSubscribe} className="flex gap-2 items-center">
+            <input
+              type="email"
+              placeholder="your@email.com"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              className="flex-1 text-xs rounded-md border border-[var(--border)] bg-[var(--input)] p-3 text-[var(--foreground)] placeholder-[var(--muted-foreground)] focus:outline-none focus:ring focus:ring-[var(--border-secondary)]"
+            />
+            <button
+              type="submit"
+              disabled={!isEmailValid || isSubscribed}
+              className={`rounded-lg bg-[var(--primary)] px-4 py-3 font-medium text-xs text-[var(--primary-foreground)] transition-colors ${
+                isEmailValid && !isSubscribed
+                  ? 'opacity-100 hover:opacity-90 cursor-pointer' 
+                  : 'opacity-80 cursor-not-allowed'
+              }`}
+            >
+              {isSubscribed ? 'Subscribed' : 'Subscribe'}
+            </button>
+          </form>
+        </div>
+
+        <div className="flex flex-col" style={{ gap: '1rem' }}>
+          {/* Content Filter/Navigation */}
+          <div className="flex gap-1">
+            {filters.map((filter) => (
+              <button
+                key={filter}
+                onClick={() => setSelectedFilter(filter)}
+                className={`cursor-pointer px-4 py-2 text-xs transition-colors ${
+                  selectedFilter === filter
+                    ? 'bg-[var(--secondary)] text-[var(--foreground)] hover:bg-[var(--button-hover)]'
+                    : 'bg-transparent text-[var(--muted-foreground)] hover:text-[var(--foreground)]'
+                }`}
+                style={{
+                  borderRadius: designTokens.borders.radius.xbg
+                }}
+              >
+                {filter}
+              </button>
+            ))}
+          </div>
+
+          {/* Updates Section */}
+          <div className="space-y-6">
+          {loading ? (
+            <p className="text-[var(--muted-foreground)]">Loading updates...</p>
+          ) : filteredUpdates.length === 0 ? (
+            <p className="text-[var(--muted-foreground)]">No updates found for this filter.</p>
+          ) : (
+            filteredUpdates.map((update, index) => (
+              <div
+                key={index}
+                className="cursor-pointer transition-colors"
+                style={{
+                  display: 'flex',
+                  padding: 'var(--Spacing-xmd, 0.75rem)',
+                  flexDirection: 'column',
+                  alignItems: 'flex-start',
+                  gap: 'var(--Spacing-xs, 0.25rem)',
+                  alignSelf: 'stretch',
+                  borderRadius: 'var(--Radius-md, 0.5rem)',
+                  backgroundColor: 'transparent',
+                }}
+                onMouseEnter={(e) => {
+                  e.currentTarget.style.backgroundColor = 'var(--button-hover)';
+                }}
+                onMouseLeave={(e) => {
+                  e.currentTarget.style.backgroundColor = 'transparent';
+                }}
+                >
+                  <h2 className="text-base font-medium text-[var(--foreground)]">
+                    {update.title}
+                  </h2>
+                  <p className="text-[var(--muted-foreground)]">
+                    {update.description}
+                  </p>
+              </div>
+            ))
+          )}
+          </div>
+        </div>
+      </div>
+
+      {/* Floating Navigation */}
+      <FloatingNav />
+    </div>
+  );
+}
