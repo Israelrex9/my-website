@@ -73,16 +73,16 @@ export function FloatingNav() {
                     className={`transition-transform duration-200 ${
                       item.isChat
                         ? theme === 'light'
-                          ? 'text-[--primary-foreground]'
-                          : 'text-[--accent]'
+                          ? 'text-[var(--foreground)]'
+                          : 'text-[var(--primary)]'
                         : ''
                     }`}
                   />
                   <span className={`nav-label text-sm font-medium ${
                     item.isChat 
                       ? theme === 'light' 
-                        ? 'text-[--primary-foreground]' 
-                        : 'text-[--accent]'
+                        ? 'text-[var(--foreground)]' 
+                        : 'text-[var(--primary)]'
                       : ''
                   }`}>{item.label}</span>
                 </a>
@@ -101,16 +101,16 @@ export function FloatingNav() {
                   className={`transition-transform duration-200 ${
                     item.isChat
                       ? theme === 'light'
-                        ? 'text-[--primary-foreground]'
-                        : 'text-[--accent]'
+                        ? 'text-[var(--foreground)]'
+                        : 'text-[var(--primary)]'
                       : ''
                   }`}
                 />
                 <span className={`nav-label text-sm font-medium ${
                   item.isChat 
                     ? theme === 'light' 
-                      ? 'text-[--primary-foreground]' 
-                      : 'text-[--accent]'
+                      ? 'text-[var(--foreground)]' 
+                      : 'text-[var(--primary)]'
                     : ''
                 }`}>{item.label}</span>
               </Link>

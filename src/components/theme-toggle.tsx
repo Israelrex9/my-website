@@ -37,6 +37,7 @@ export function ThemeToggle() {
               alignItems: 'center',
               justifyContent: 'center',
               transition: 'all 0.2s ease',
+              cursor: 'pointer',
             }}
             className="transition-all duration-200"
             title={`Switch to ${label} theme`}

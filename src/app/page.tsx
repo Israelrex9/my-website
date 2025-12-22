@@ -1,58 +1,23 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import Image from 'next/image';
 import { FloatingNav } from '@/components/floating-nav';
 import { designTokens } from '@/design-tokens';
-import { Envelope, LinkedinLogo, TwitterLogo, GithubLogo } from '@phosphor-icons/react';
-
-interface Update {
-  title: string;
-  description: string;
-  category: string;
-  date: string;
-}
+import { Envelope, LinkedinLogo, TwitterLogo, GithubLogo, DribbbleLogo} from '@phosphor-icons/react';
+import { sortedUpdates } from '@/data/updates';
 
 export default function Home() {
   const [selectedFilter, setSelectedFilter] = useState('All');
   const [email, setEmail] = useState('');
-  const [updates, setUpdates] = useState<Update[]>([]);
-  const [loading, setLoading] = useState(true);
   const [isSubscribed, setIsSubscribed] = useState(false);
 
   const filters = ['All', 'Work', 'Projects', 'Writings', 'Components'];
 
-  // Fetch updates from API
-  useEffect(() => {
-    const fetchUpdates = async () => {
-      try {
-        const response = await fetch('/api/experiences');
-        if (response.ok) {
-          const data = await response.json();
-          // Format dates from ISO strings to YYYY-MM-DD if needed
-          const formattedData = data.map((update: Update) => ({
-            ...update,
-            date: update.date.split('T')[0] // Convert ISO date to YYYY-MM-DD
-          }));
-          setUpdates(formattedData);
-        } else {
-          const errorData = await response.json().catch(() => ({}));
-          console.error('Failed to fetch updates:', response.status, errorData);
-        }
-      } catch (error) {
-        console.error('Error fetching updates:', error);
-      } finally {
-        setLoading(false);
-      }
-    };
-
-    fetchUpdates();
-  }, []);
-
   // Filter updates based on selected filter
   const filteredUpdates = selectedFilter === 'All' 
-    ? updates 
-    : updates.filter(update => update.category === selectedFilter);
+    ? sortedUpdates 
+    : sortedUpdates.filter(update => update.category === selectedFilter);
 
   // Validate email format (must contain @ and domain with dot)
   const isValidEmail = (email: string) => {
@@ -137,7 +102,7 @@ export default function Home() {
           </div>
           
           {/* Social Media Links */}
-          <div className="flex gap-2">
+          <div className="flex flex-wrap gap-2">
             <a
               href="mailto:rex@xelmar.co"
               className="flex items-center py-3 px-6 text-xs text-foreground transition-colors"
@@ -197,6 +162,21 @@ export default function Home() {
               <GithubLogo size={14} color="currentColor" weight='fill' />
               Github
             </a>
+            <a
+              href="https://dribbble.com/IsraelRex"
+            target="_blank"
+            rel="noopener noreferrer"
+              className="flex items-center gap-2 px-4 py-2 text-sm text-foreground transition-colors"
+              style={{
+                borderRadius: designTokens.borders.radius.xbg,
+                backgroundColor: 'var(--secondary)'
+              }}
+              onMouseEnter={(e) => e.currentTarget.style.backgroundColor = 'var(--button-hover)'}
+              onMouseLeave={(e) => e.currentTarget.style.backgroundColor = 'var(--secondary)'}
+            >
+              <DribbbleLogo size={14} color="currentColor" weight='fill' />
+              Dribbble
+            </a>
           </div>
         </div>
 
@@ -253,9 +233,7 @@ export default function Home() {
 
           {/* Updates Section */}
           <div className="space-y-6">
-          {loading ? (
-            <p className="text-[--muted-foreground]">Loading updates...</p>
-          ) : filteredUpdates.length === 0 ? (
+          {filteredUpdates.length === 0 ? (
             <p className="text-[--muted-foreground]">No updates found for this filter.</p>
           ) : (
             filteredUpdates.map((update, index) => (
