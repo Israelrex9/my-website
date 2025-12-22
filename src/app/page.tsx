@@ -4,7 +4,7 @@ import { useState, useEffect } from 'react';
 import Image from 'next/image';
 import { FloatingNav } from '@/components/floating-nav';
 import { designTokens } from '@/design-tokens';
-import { EnvelopeSimple, LinkedinLogo, TwitterLogo, GithubLogo } from '@phosphor-icons/react';
+import { Envelope, LinkedinLogo, TwitterLogo, GithubLogo } from '@phosphor-icons/react';
 
 interface Update {
   title: string;
@@ -92,7 +92,7 @@ export default function Home() {
   };
 
   return (
-    <div className="min-h-screen bg-[var(--background)] text-[var(--foreground)]">
+    <div className="min-h-screen bg-background text-foreground">
       <div 
         className="responsive-container flex flex-col mx-auto w-full pt-24 pb-24 px-4"
         style={{ 
@@ -107,7 +107,7 @@ export default function Home() {
             style={{ gap: designTokens.spacing.lg }}
           >
             <div 
-              className="h-12 w-12 shrink-0 overflow-hidden bg-[var(--surface)]"
+              className="h-12 w-12 shrink-0 overflow-hidden bg-[--surface]"
               style={{ borderRadius: designTokens.borders.radius.lg }}
             >
         <Image
@@ -121,13 +121,13 @@ export default function Home() {
             </div>
             
             <div className="flex flex-col" style={{ gap: designTokens.spacing.sm }}>
-              <h1 className="text-base font-medium text-[var(--foreground)]" style={{ lineHeight: '100%' }}>Israel Rex</h1>
-              <p className="text-base font-normal text-[var(--muted)]" style={{ lineHeight: '100%' }}>Product Designer at PearProtocol</p>
+              <h1 className="text-base font-medium text-foreground" style={{ lineHeight: '100%' }}>Israel Rex</h1>
+              <p className="text-base font-normal text-[--muted]" style={{ lineHeight: '100%' }}>Product Designer at PearProtocol</p>
             </div>
           </div>
           
           {/* Bio Text */}
-          <div className="mb-6 space-y-3 text-[var(--muted-foreground)]">
+          <div className="mb-6 space-y-3 text-[--muted-foreground]">
             <p>
               I&apos;m a founding designer at PearProtocol, a product designer and a design engineer. I design and build software products that feel magical, yet simple and intuitive.
             </p>
@@ -140,7 +140,7 @@ export default function Home() {
           <div className="flex gap-2">
             <a
               href="mailto:rex@xelmar.co"
-              className="flex items-center py-3 px-6 text-xs text-[var(--foreground)] transition-colors"
+              className="flex items-center py-3 px-6 text-xs text-foreground transition-colors"
               style={{ 
                 gap: designTokens.spacing.sm, 
                 borderRadius: designTokens.borders.radius.xbg,
@@ -149,14 +149,14 @@ export default function Home() {
               onMouseEnter={(e) => e.currentTarget.style.backgroundColor = 'var(--button-hover)'}
               onMouseLeave={(e) => e.currentTarget.style.backgroundColor = 'var(--secondary)'}
             >
-              <EnvelopeSimple size={15} color="currentColor" weight='fill' />
+              <Envelope size={15} color="currentColor" weight='fill' />
               Mail
             </a>
             <a
               href="https://www.linkedin.com/in/israel-rex/"
               target="_blank"
               rel="noopener noreferrer"
-              className="flex items-center gap-2 px-4 py-2 text-sm text-[var(--foreground)] transition-colors"
+              className="flex items-center gap-2 px-4 py-2 text-sm text-foreground transition-colors"
               style={{
                 borderRadius: designTokens.borders.radius.xbg,
                 backgroundColor: 'var(--secondary)'
@@ -171,7 +171,7 @@ export default function Home() {
               href="https://x.com/israelxrex"
             target="_blank"
             rel="noopener noreferrer"
-              className="flex items-center gap-2 px-4 py-2 text-sm text-[var(--foreground)] transition-colors"
+              className="flex items-center gap-2 px-4 py-2 text-sm text-foreground transition-colors"
               style={{
                 borderRadius: designTokens.borders.radius.xbg,
                 backgroundColor: 'var(--secondary)'
@@ -186,7 +186,7 @@ export default function Home() {
               href="https://github.com/Israelrex9"
             target="_blank"
             rel="noopener noreferrer"
-              className="flex items-center gap-2 px-4 py-2 text-sm text-[var(--foreground)] transition-colors"
+              className="flex items-center gap-2 px-4 py-2 text-sm text-foreground transition-colors"
               style={{
                 borderRadius: designTokens.borders.radius.xbg,
                 backgroundColor: 'var(--secondary)'
@@ -239,8 +239,8 @@ export default function Home() {
                 onClick={() => setSelectedFilter(filter)}
                 className={`cursor-pointer px-4 py-2 text-xs transition-colors ${
                   selectedFilter === filter
-                    ? 'bg-[var(--secondary)] text-[var(--foreground)] hover:bg-[var(--button-hover)]'
-                    : 'bg-transparent text-[var(--muted-foreground)] hover:text-[var(--foreground)]'
+                    ? 'bg-[--secondary] text-foreground hover:bg-[--button-hover]'
+                    : 'bg-transparent text-[--muted-foreground] hover:text-foreground'
                 }`}
                 style={{
                   borderRadius: designTokens.borders.radius.xbg
@@ -254,9 +254,9 @@ export default function Home() {
           {/* Updates Section */}
           <div className="space-y-6">
           {loading ? (
-            <p className="text-[var(--muted-foreground)]">Loading updates...</p>
+            <p className="text-[--muted-foreground]">Loading updates...</p>
           ) : filteredUpdates.length === 0 ? (
-            <p className="text-[var(--muted-foreground)]">No updates found for this filter.</p>
+            <p className="text-[--muted-foreground]">No updates found for this filter.</p>
           ) : (
             filteredUpdates.map((update, index) => (
               <div
@@ -279,10 +279,10 @@ export default function Home() {
                   e.currentTarget.style.backgroundColor = 'transparent';
                 }}
                 >
-                  <h2 className="text-base font-medium text-[var(--foreground)]">
+                  <h2 className="text-base font-medium text-foreground">
                     {update.title}
                   </h2>
-                  <p className="text-[var(--muted-foreground)]">
+                  <p className="text-[--muted-foreground]">
                     {update.description}
                   </p>
               </div>

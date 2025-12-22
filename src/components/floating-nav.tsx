@@ -2,7 +2,7 @@
 
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
-import { House, Briefcase, Star, Wrench, PaperPlaneTilt } from '@phosphor-icons/react';
+import { House, Briefcase, Wrench, PaperPlaneTilt } from '@phosphor-icons/react';
 import { ThemeToggle } from './theme-toggle';
 import { designTokens } from '@/design-tokens';
 import { useTheme } from '@/contexts/theme-context';
@@ -73,16 +73,16 @@ export function FloatingNav() {
                     className={`transition-transform duration-200 ${
                       item.isChat
                         ? theme === 'light'
-                          ? 'text-[var(--primary-foreground)]'
-                          : 'text-[var(--accent)]'
+                          ? 'text-[--primary-foreground]'
+                          : 'text-[--accent]'
                         : ''
                     }`}
                   />
                   <span className={`nav-label text-sm font-medium ${
                     item.isChat 
                       ? theme === 'light' 
-                        ? 'text-[var(--primary-foreground)]' 
-                        : 'text-[var(--accent)]'
+                        ? 'text-[--primary-foreground]' 
+                        : 'text-[--accent]'
                       : ''
                   }`}>{item.label}</span>
                 </a>
@@ -101,16 +101,16 @@ export function FloatingNav() {
                   className={`transition-transform duration-200 ${
                     item.isChat
                       ? theme === 'light'
-                        ? 'text-[var(--primary-foreground)]'
-                        : 'text-[var(--accent)]'
+                        ? 'text-[--primary-foreground]'
+                        : 'text-[--accent]'
                       : ''
                   }`}
                 />
                 <span className={`nav-label text-sm font-medium ${
                   item.isChat 
                     ? theme === 'light' 
-                      ? 'text-[var(--primary-foreground)]' 
-                      : 'text-[var(--accent)]'
+                      ? 'text-[--primary-foreground]' 
+                      : 'text-[--accent]'
                     : ''
                 }`}>{item.label}</span>
               </Link>
@@ -119,7 +119,7 @@ export function FloatingNav() {
         </div>
 
         {/* Separator */}
-        <div className="h-8 w-px bg-[var(--border-secondary)]" />
+        <div className="h-8 w-px bg-[--border-secondary]" />
 
         {/* Theme Toggle */}
         <ThemeToggle />
