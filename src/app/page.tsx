@@ -103,7 +103,7 @@ export default function Home() {
           
           {/* Social Media Links */}
           <div className="flex flex-wrap gap-2">
-            <a
+            {/* <a
               href="mailto:rex@xelmar.co"
               className="flex items-center py-3 px-6 text-xs text-foreground transition-colors"
               style={{ 
@@ -116,7 +116,7 @@ export default function Home() {
             >
               <Envelope size={15} color="currentColor" weight='fill' />
               Mail
-            </a>
+            </a> */}
             {/* <a
               href="https://www.linkedin.com/in/israel-rex/"
               target="_blank"

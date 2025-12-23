@@ -52,11 +52,8 @@ export function ThemeProvider({ children }: { children: ReactNode }) {
     // Only run on client side
     if (typeof window === 'undefined') return;
     
-    // Load theme preference from localStorage
-    const savedTheme = localStorage.getItem('theme-mode') as ThemeMode | null;
-    if (savedTheme && ['light', 'dark', 'system'].includes(savedTheme)) {
-      setThemeModeState(savedTheme);
-    }
+    // Always use system theme, ignore localStorage
+    setThemeModeState('system');
     setMounted(true);
   }, []);
 
@@ -95,4 +92,3 @@ export function useTheme() {
   }
   return context;
 }
-

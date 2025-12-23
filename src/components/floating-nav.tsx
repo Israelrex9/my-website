@@ -2,8 +2,7 @@
 
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
-import { House, Briefcase, Wrench, PaperPlaneTilt } from '@phosphor-icons/react';
-import { ThemeToggle } from './theme-toggle';
+import { House, Envelope, Wrench, PaperPlaneTilt } from '@phosphor-icons/react';
 import { designTokens } from '@/design-tokens';
 import { useTheme } from '@/contexts/theme-context';
 
@@ -16,7 +15,8 @@ export function FloatingNav() {
     // { href: '/#work', label: 'Work', icon: Briefcase, external: false, isChat: false },
     // { href: '/#projects', label: 'Projects', icon: Star, external: false, isChat: false },
     { href: '/#stack', label: 'Stack', icon: Wrench, external: false, isChat: false },
-    { href: 'http://t.me/israelrex', label: 'Chat', icon: PaperPlaneTilt, external: true, isChat: true },
+    { href:"mailto:rex@xelmar.co", label: 'Mail', icon: Envelope, external: false, isChat: false },
+    { href: 'http://t.me/israelrex', label: 'Telegram', icon: PaperPlaneTilt, external: true, isChat: true },
   ];
 
   const isActive = (href: string) => {
@@ -117,12 +117,6 @@ export function FloatingNav() {
             );
           })}
         </div>
-
-        {/* Separator */}
-        <div className="h-8 w-px bg-[--border-secondary]" />
-
-        {/* Theme Toggle */}
-        <ThemeToggle />
       </div>
     </nav>
   );
