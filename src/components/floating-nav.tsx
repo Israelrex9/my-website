@@ -13,7 +13,7 @@ export function FloatingNav() {
 
   const navItems = [
     { href: '/', label: 'Home', icon: House, external: false, isChat: false },
-    { href: '/#work', label: 'Work', icon: Briefcase, external: false, isChat: false },
+    // { href: '/#work', label: 'Work', icon: Briefcase, external: false, isChat: false },
     // { href: '/#projects', label: 'Projects', icon: Star, external: false, isChat: false },
     { href: '/#stack', label: 'Stack', icon: Wrench, external: false, isChat: false },
     { href: 'http://t.me/israelrex', label: 'Chat', icon: PaperPlaneTilt, external: true, isChat: true },

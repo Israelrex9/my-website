@@ -4,20 +4,20 @@ import { useState } from 'react';
 import Image from 'next/image';
 import { FloatingNav } from '@/components/floating-nav';
 import { designTokens } from '@/design-tokens';
-import { Envelope, LinkedinLogo, TwitterLogo, GithubLogo, DribbbleLogo} from '@phosphor-icons/react';
+import { Envelope, TwitterLogo, GithubLogo, DribbbleLogo} from '@phosphor-icons/react';
 import { sortedUpdates } from '@/data/updates';
+import { useTheme } from '@/contexts/theme-context';
 
 export default function Home() {
-  const [selectedFilter, setSelectedFilter] = useState('All');
+  const { theme } = useTheme();
+  const [selectedFilter, setSelectedFilter] = useState('Writings');
   const [email, setEmail] = useState('');
   const [isSubscribed, setIsSubscribed] = useState(false);
 
-  const filters = ['All', 'Work', 'Projects', 'Writings', 'Components'];
+  const filters = ['Writings', 'Components', 'Projects', 'Work'];
 
   // Filter updates based on selected filter
-  const filteredUpdates = selectedFilter === 'All' 
-    ? sortedUpdates 
-    : sortedUpdates.filter(update => update.category === selectedFilter);
+  const filteredUpdates = sortedUpdates.filter(update => update.category === selectedFilter);
 
   // Validate email format (must contain @ and domain with dot)
   const isValidEmail = (email: string) => {
@@ -87,16 +87,16 @@ export default function Home() {
             
             <div className="flex flex-col" style={{ gap: designTokens.spacing.sm }}>
               <h1 className="text-base font-medium text-foreground" style={{ lineHeight: '100%' }}>Israel Rex</h1>
-              <p className="text-base font-normal text-[--muted]" style={{ lineHeight: '100%' }}>Product Designer at PearProtocol</p>
+              <p className="text-base font-medium text-[--muted]" style={{ lineHeight: '100%', color: 'var(--muted-foreground)' }}>Product Designer at PearProtocol</p>
             </div>
           </div>
           
           {/* Bio Text */}
           <div className="mb-6 space-y-3">
-            <p className="text-[--muted]">
+            <p className="text-[--muted]" style={{ color: 'var(--muted)' }}>
               I&apos;m a founding designer at PearProtocol, a product designer and a design engineer. I design and build software products that feel magical, yet simple and intuitive.
             </p>
-            <p className="text-[--muted]">
+            <p className="text-[--muted]" style={{ color: 'var(--muted)' }}>
               Recently, I am picking interest in UI micro interactions and sharing my thoughts through writings and videos. Look forward to my first writing piece.
             </p>
           </div>
@@ -117,7 +117,7 @@ export default function Home() {
               <Envelope size={15} color="currentColor" weight='fill' />
               Mail
             </a>
-            <a
+            {/* <a
               href="https://www.linkedin.com/in/israel-rex/"
               target="_blank"
               rel="noopener noreferrer"
@@ -131,7 +131,7 @@ export default function Home() {
             >
               <LinkedinLogo size={14} color="currentColor" weight='fill'/>
               Linkedin
-            </a>
+            </a> */}
             <a
               href="https://x.com/israelxrex"
             target="_blank"
@@ -185,7 +185,7 @@ export default function Home() {
           className="p-6 gap-4 border border-[var(--border)] bg-[var(--card)]"
           style={{ borderRadius: designTokens.borders.radius.lg }}
         >
-          <p className="mb-4 text-sm font-normal text-[--muted-foreground]">
+          <p className="mb-4 text-sm font-normal text-[--muted-foreground]" style={{ color: 'var(--muted-foreground)' }}>
             Join my mailing list, to be the first to know when I release my first writing piece.
           </p>
           <form onSubmit={handleSubscribe} className="flex gap-2 items-center">
@@ -219,11 +219,16 @@ export default function Home() {
                 onClick={() => setSelectedFilter(filter)}
                 className={`cursor-pointer px-4 py-2 text-xs transition-colors ${
                   selectedFilter === filter
-                    ? 'bg-[--secondary] text-foreground hover:bg-[--button-hover]'
+                    ? ''
                     : 'bg-transparent text-[--muted-foreground] hover:text-foreground'
                 }`}
                 style={{
-                  borderRadius: designTokens.borders.radius.xbg
+                  borderRadius: designTokens.borders.radius.xbg,
+                  ...(selectedFilter === filter
+                    ? theme === 'dark'
+                      ? { backgroundColor: '#ffffff', color: '#000000' }
+                      : { backgroundColor: '#000000', color: '#ffffff' }
+                    : {})
                 }}
               >
                 {filter}
@@ -236,35 +241,39 @@ export default function Home() {
           {filteredUpdates.length === 0 ? (
             <p className="text-[--muted-foreground]">No updates found for this filter.</p>
           ) : (
-            filteredUpdates.map((update, index) => (
-              <div
-                key={index}
-                className="cursor-pointer transition-colors"
-                style={{
-                  display: 'flex',
-                  padding: 'var(--Spacing-xmd, 0.75rem)',
-                  flexDirection: 'column',
-                  alignItems: 'flex-start',
-                  gap: 'var(--Spacing-xs, 0.25rem)',
-                  alignSelf: 'stretch',
-                  borderRadius: 'var(--Radius-md, 0.5rem)',
-                  backgroundColor: 'transparent',
-                }}
-                onMouseEnter={(e) => {
-                  e.currentTarget.style.backgroundColor = 'var(--button-hover)';
-                }}
-                onMouseLeave={(e) => {
-                  e.currentTarget.style.backgroundColor = 'transparent';
-                }}
+            filteredUpdates.map((update, index) => {
+              const isWork = update.category === 'Work';
+              const content = (
+                <div
+                  className="transition-colors"
+                  style={{
+                    display: 'flex',
+                    padding: 'var(--Spacing-xmd, 0.75rem)',
+                    flexDirection: 'column',
+                    alignItems: 'flex-start',
+                    gap: 'var(--Spacing-xs, 0.25rem)',
+                    alignSelf: 'stretch',
+                    borderRadius: 'var(--Radius-md, 0.5rem)',
+                    backgroundColor: 'transparent',
+                  }}
+                  onMouseEnter={isWork ? undefined : (e) => {
+                    e.currentTarget.style.backgroundColor = 'var(--button-hover)';
+                  }}
+                  onMouseLeave={isWork ? undefined : (e) => {
+                    e.currentTarget.style.backgroundColor = 'transparent';
+                  }}
                 >
-                  <h2 className="text-base font-medium text-[--muted]">
+                  <h2 className="text-base font-medium text-[--foreground]" style={{ color: 'var(--foreground)' }}>
                     {update.title}
                   </h2>
-                  <p className="text-[--muted-foreground]">
+                  <p className="text-[--muted-foreground]" style={{ color: 'var(--muted-foreground)' }}>
                     {update.description}
                   </p>
-              </div>
-            ))
+                </div>
+              );
+
+              return <div key={index}>{content}</div>;
+            })
           )}
           </div>
         </div>
