@@ -94,7 +94,7 @@ body {
 }
 
 /* Hide nav text on small screens (except Chat) */
-@media (max-width: 30rem) {
+@media (max-width: 25rem) {
   .nav-label-hidden {
     display: none !important;
   }
