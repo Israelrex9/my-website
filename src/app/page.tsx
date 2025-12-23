@@ -92,11 +92,11 @@ export default function Home() {
           </div>
           
           {/* Bio Text */}
-          <div className="mb-6 space-y-3 text-[--muted-foreground]">
-            <p>
+          <div className="mb-6 space-y-3">
+            <p className="text-[--muted]">
               I&apos;m a founding designer at PearProtocol, a product designer and a design engineer. I design and build software products that feel magical, yet simple and intuitive.
             </p>
-            <p>
+            <p className="text-[--muted]">
               Recently, I am picking interest in UI micro interactions and sharing my thoughts through writings and videos. Look forward to my first writing piece.
             </p>
           </div>
@@ -185,7 +185,7 @@ export default function Home() {
           className="p-6 gap-4 border border-[var(--border)] bg-[var(--card)]"
           style={{ borderRadius: designTokens.borders.radius.lg }}
         >
-          <p className="mb-4 text-sm font-normal text-[var(--muted-foreground)]">
+          <p className="mb-4 text-sm font-normal text-[--muted-foreground]">
             Join my mailing list, to be the first to know when I release my first writing piece.
           </p>
           <form onSubmit={handleSubscribe} className="flex gap-2 items-center">
@@ -257,7 +257,7 @@ export default function Home() {
                   e.currentTarget.style.backgroundColor = 'transparent';
                 }}
                 >
-                  <h2 className="text-base font-medium text-foreground">
+                  <h2 className="text-base font-medium text-[--muted]">
                     {update.title}
                   </h2>
                   <p className="text-[--muted-foreground]">
