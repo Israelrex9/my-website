@@ -78,7 +78,7 @@ export function FloatingNav() {
                         : ''
                     }`}
                   />
-                  <span className={`nav-label text-sm font-medium ${
+                  <span className={`nav-label ${item.isChat ? 'nav-label-chat' : 'nav-label-hidden'} text-sm font-medium ${
                     item.isChat 
                       ? theme === 'light' 
                         ? 'text-[var(--foreground)]' 
@@ -106,12 +106,12 @@ export function FloatingNav() {
                       : ''
                   }`}
                 />
-                <span className={`nav-label text-sm font-medium ${
-                  item.isChat 
-                    ? theme === 'light' 
-                      ? 'text-[var(--foreground)]' 
-                      : 'text-[var(--primary)]'
-                    : ''
+                <span className={`nav-label ${item.isChat ? 'nav-label-chat' : 'nav-label-hidden'} text-sm font-medium ${
+                    item.isChat 
+                      ? theme === 'light' 
+                        ? 'text-[var(--foreground)]' 
+                        : 'text-[var(--primary)]'
+                      : ''
                 }`}>{item.label}</span>
               </Link>
             );

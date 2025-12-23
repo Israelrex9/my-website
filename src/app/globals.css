@@ -93,10 +93,13 @@ body {
   }
 }
 
-/* Hide nav text on small screens */
+/* Hide nav text on small screens (except Chat) */
 @media (max-width: 41.999rem) {
-  .nav-label {
-    display: none;
+  .nav-label-hidden {
+    display: none !important;
+  }
+  .nav-label-chat {
+    display: inline-block !important;
   }
 }
 
